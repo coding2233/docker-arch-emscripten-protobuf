@@ -7,8 +7,9 @@ ARG EMSCRIPTEN_VERSION="3.1.51"
 
 # Upgrade system
 RUN sudo pacman --noconfirm -Scc
-RUN sudo pacman --noconfirm -Syu
-RUN sudo pacman --noconfirm -S archlinux-keyring
+RUN sudo pacman-key --init
+RUN sudo pacman-key --populate
+#RUN sudo pacman --noconfirm -S archlinux-keyring
 RUN sudo pacman --noconfirm -Syyu
 
 # Install dependencies

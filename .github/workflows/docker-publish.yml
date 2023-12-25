@@ -21,7 +21,7 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
   PROTOBUF_VERSION: "3.9.0"
-  TMPDIR: "~/build/tmp"
+  TMPDIR: "/home/runner/temp/build"
 
 
 jobs:
@@ -49,9 +49,6 @@ jobs:
           emcc -v
           node -v 
           npm -v
-          echo $(pwd)
-          cd ~
-          echo $(pwd)
           echo $TMPDIR
           mkdir -p $TMPDIR
       

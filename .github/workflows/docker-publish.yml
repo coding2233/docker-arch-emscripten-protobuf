@@ -69,14 +69,10 @@ jobs:
           sh autogen.sh && emconfigure ./configure CXXFLAGS="-O2" && emmake make
           cp -r ./src/.libs $TMPDIR/
           ls -al $TMPDIR/.libs;
-          
-      - name: Release
-        uses: fnkr/github-action-ghr@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        env:
-          GHR_COMPRESS: .tar.gz
-          GHR_PATH: /home/runner/temp/build/.libs/
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}    
+      - uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact-protobuf-wasm
+          path: $TMPDIR/.libs/  
       #- name: Build docker
       #  run: |
       #    docker build --tag daep .

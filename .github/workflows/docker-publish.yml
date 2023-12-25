@@ -75,7 +75,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GHR_COMPRESS: .tar.gz
-          GHR_PATH: $TMPDIR/.libs/
+          GHR_PATH: /home/runner/temp/build/.libs/
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}    
       #- name: Build docker
       #  run: |

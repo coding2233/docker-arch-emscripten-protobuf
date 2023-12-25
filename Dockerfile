@@ -6,7 +6,7 @@ ARG PROTOBUF_VERSION="25.0"
 ARG EMSCRIPTEN_VERSION="3.1.51"
 
 # Upgrade system
-RUN pacman --noconfirm -Syyu
+RUN pacman --noconfirm -Syu
 
 # Install dependencies
 RUN pacman --noconfirm -S \

@@ -20,6 +20,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  PROTOBUF_VERSION: "3.9.0"
 
 
 jobs:
@@ -37,10 +38,40 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Build docker
+      - name: emscripten setup
+        uses: mymindstorm/setup-emsdk@v11
+
+      - uses: actions/setup-node@v4
+      
+      - name: check
         run: |
-          docker build --tag daep .
-          docker images
+          emcc -v
+          node -v 
+          npm -v
+          echo $TMPDIR
+      
+      - name: Install specific version of protobuf corresponding to protobuf-wasm.
+        run: |
+          cd $TMPDIR
+          curl https://github.com/protocolbuffers/protobuf/releases/download/v$PROTOBUF_VERSION/protobuf-all-$PROTOBUF_VERSION.tar.gz -L > protobuf-all-$PROTOBUF_VERSION.tar.gz
+          tar xvzf ./protobuf-all-$PROTOBUF_VERSION.tar.gz && cd protobuf-$PROTOBUF_VERSION
+          ./configure && make && make check && sudo make install && sudo ldconfig;
+
+      - name: Build emscripten-wasm as well to generate lib build will be placed build under `/home/builder/temp/.libs`
+        run: |
+          cd $TMPDIR && git clone https://github.com/google/protobuf && cd protobuf && git checkout v$PROTOBUF_VERSION
+          cd $TMPDIR && git clone https://github.com/kwonoj/protobuf-wasm
+          cd $TMPDIR/protobuf-wasm && git checkout v$PROTOBUF_VERSION && cp *.patch $TMPDIR/protobuf
+          cd $TMPDIR/protobuf && git apply *.patch
+          git status
+          sh autogen.sh && emconfigure ./configure CXXFLAGS="-O2" && emmake make
+          cp -r ./src/.libs $TMPDIR/
+          ls -al $TMPDIR/.libs;
+          
+      #- name: Build docker
+      #  run: |
+      #    docker build --tag daep .
+      #    docker images
 
       # # Install the cosign tool except on PR
       # # https://github.com/sigstore/cosign-installer

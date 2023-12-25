@@ -6,8 +6,8 @@ ARG PROTOBUF_VERSION="25.0"
 ARG EMSCRIPTEN_VERSION="3.1.51"
 
 # Upgrade system
-RUN pacman --noconfirm -S archlinux-keyring
-RUN pacman --noconfirm -Syyu
+RUN sudo pacman --noconfirm -S archlinux-keyring
+RUN sudo pacman --noconfirm -Syyu
 
 # Install dependencies
 RUN pacman --noconfirm -S \

@@ -21,6 +21,7 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
   PROTOBUF_VERSION: "3.9.0"
+  TMPDIR: "/build/tmp"
 
 
 jobs:
@@ -49,6 +50,7 @@ jobs:
           node -v 
           npm -v
           echo $TMPDIR
+          mkdir -p $TMPDIR
       
       - name: Install specific version of protobuf corresponding to protobuf-wasm.
         run: |

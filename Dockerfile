@@ -1,9 +1,9 @@
 FROM ojkwon/arch-nvm-node:311b338-node15.0.0-npm7.0.9
 
 # Build time args
-ARG BUILD_TARGET=""
-ARG PROTOBUF_VERSION=""
-ARG EMSCRIPTEN_VERSION=""
+ARG BUILD_TARGET="protobuf"
+ARG PROTOBUF_VERSION="25.0"
+ARG EMSCRIPTEN_VERSION="3.1.51"
 
 # Upgrade system
 RUN pacman --noconfirm -Syyu

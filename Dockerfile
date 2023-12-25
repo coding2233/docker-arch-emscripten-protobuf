@@ -6,6 +6,8 @@ ARG PROTOBUF_VERSION="25.0"
 ARG EMSCRIPTEN_VERSION="3.1.51"
 
 # Upgrade system
+RUN sudo pacman -Scc
+RUN sudo reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 RUN sudo pacman --noconfirm -S archlinux-keyring
 RUN sudo pacman --noconfirm -Syyu
 

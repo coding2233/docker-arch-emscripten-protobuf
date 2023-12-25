@@ -7,8 +7,9 @@ ARG EMSCRIPTEN_VERSION="3.1.51"
 
 # Upgrade system
 RUN sudo pacman --noconfirm -Scc
-COPY archlinux.org.txt /archlinux.org.txt
-RUN sudo cat /archlinux.org.txt > /etc/pacman.d/mirrorlist
+RUN sudo pacman --noconfirm -Syy
+#COPY archlinux.org.txt /archlinux.org.txt
+#RUN sudo cat /archlinux.org.txt > /etc/pacman.d/mirrorlist
 #RUN sudo pacman-key --init
 #RUN sudo pacman-key --populate
 #RUN sudo pacman --noconfirm -S archlinux-keyring

@@ -72,7 +72,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: my-artifact-protobuf-wasm
-          path: $TMPDIR/.libs/  
+          path: /home/runner/temp/build/.libs/  
       #- name: Build docker
       #  run: |
       #    docker build --tag daep .

@@ -70,6 +70,13 @@ jobs:
           cp -r ./src/.libs $TMPDIR/
           ls -al $TMPDIR/.libs;
           
+      - name: Release
+        uses: fnkr/github-action-ghr@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GHR_COMPRESS: .tar.gz
+          GHR_PATH: $TMPDIR/.libs/
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}    
       #- name: Build docker
       #  run: |
       #    docker build --tag daep .
